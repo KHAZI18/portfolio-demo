@@ -27,15 +27,21 @@ export default function Home() {
   
     try {
       // Make the POST request to the API endpoint
-      const apiMessage = await fetch('/api', {
+      const apiMessage = await fetch('/api/route', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ messages: newMessages }), // Send all messages including user's input
       }).then(res => res.json());
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
   
       // Add the assistant's reply to the messages array
+      // setMessages([...newMessages, { role: 'assistant', content: apiMessage.message }]);
+      // const apiMessage = await response.json();
       setMessages([...newMessages, { role: 'assistant', content: apiMessage.message }]);
   
     } catch (error) {
